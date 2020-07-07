@@ -1,6 +1,7 @@
 import tweepy
 from random import randint
 
+#Setting Product Keys
 CONSUMER_KEY = ''
 CONSUMER_SECRET = ''
 ACCESS_KEY = ''
@@ -10,8 +11,10 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
+# Looking for every tweet with the specific hashtag
 mentions = api.search('#BotNamorada')
 
+# Setting a group of phrases to the bot responses
 frases = [
     ' Te amo amor...',
     ' Quer namorar comigo?',
@@ -23,12 +26,10 @@ frases = [
     ' Acho que vi um gatinho...',
     ' Chamou amor?', 
 ]
-
+# Declaring the variable that is going to be in the tweet
 frase = ''
 
-print(frase)
-
+# For every mention: choose a random phrase and respond the tweet with the right id from the user 
 for mention in mentions:
     frase = frases[randint(0, 8)]
-    print(str(mention.id) + ' - ' + mention.text)
     api.update_status('@' + mention.user.screen_name + frase, mention.id)
